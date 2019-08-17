@@ -2,13 +2,22 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const passport = require('passport')
 const logger = require('morgan');
+const User = require('./models/user');
+const session = require('express-session');
+const connectDB = require('./config/db');
 
+
+//Require Routes
 const indexRouter = require('./routes/index');
 const postsRouter = require('./routes/posts');
 const reviewsRouter = require('./routes/reviews');
 
 const app = express();
+
+// Connect Database
+connectDB()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,6 +29,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Configure passports and sessions
+app.use(session({
+  secret: 'hang ten dude',
+  resave: false,
+  saveUninitialized: true,
+}))
+
+// CHANGE: USE "createStrategy" INSTEAD OF "authenticate"
+passport.use(User.createStrategy());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//Mount Routes
 app.use('/', indexRouter);
 app.use('/posts', postsRouter)
 app.use('/posts/:id/reviews', reviewsRouter);
