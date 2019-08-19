@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'hang ten dude',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: true
 }))
 
 app.use(passport.initialize());
@@ -66,4 +66,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
