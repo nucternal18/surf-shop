@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -7,6 +9,7 @@ const logger = require('morgan');
 const User = require('./models/user');
 const session = require('express-session');
 const connectDB = require('./config/db');
+const methodOverride = require('method-override')
 
 
 //Require Routes
@@ -25,9 +28,10 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method'));
 
 //Configure passports and sessions
 app.use(session({

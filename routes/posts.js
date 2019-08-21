@@ -1,35 +1,37 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const upload = multer({ 'dest': 'uploads/' });
 const { errorHandler } = require('../middleware/index');
-const { getPosts, getNewPost, createPost } = require('../controllers/posts');
+const {
+    postIndex,
+    postNew,
+    postCreate,
+    postShow,
+    postEdit,
+    postUpdate,
+    postDelete
+} = require('../controllers/posts');
 
 /* GET posts index /posts */
-router.get('/', errorHandler(getPosts));
+router.get('/', errorHandler(postIndex));
 
 /* GET posts new /posts/new */
-router.get('/new', getNewPost);
+router.get('/new', postNew);
 
 /* POST posts create /posts */
-router.post('/', createPost);
+router.post('/', upload.array('images', 4), errorHandler(postCreate));
 
 /* GET posts show /posts/:id */
-router.get('/:id', (req, res, next) => {
-    res.send('SHOW /posts/:id');
-});
+router.get('/:id', errorHandler(postShow));
 
 /* GET posts edit /posts/:id/edit */
-router.get('/:id/edit', (req, res, next) => {
-    res.send('EDIT /posts/:id/edit');
-});
+router.get('/:id/edit', errorHandler(postEdit));
 
 /* PUT posts update /posts/:id */
-router.put('/:id', (req, res, next) => {
-    res.send('UPDATE /posts/:id');
-});
+router.put('/:id', errorHandler(postUpdate));
 
 /* DELETE posts destroy /posts/:id */
-router.delete('/:id', (req, res, next) => {
-    res.send('DELETE /posts/:id');
-});
+router.delete('/:id', errorHandler(postDelete));
 
 module.exports = router;
