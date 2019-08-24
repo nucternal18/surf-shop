@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const upload = multer({ 'dest': 'uploads/' });
+const upload = multer({ dest: 'uploads/' });
 const { errorHandler } = require('../middleware/index');
 const {
-    postIndex,
-    postNew,
-    postCreate,
-    postShow,
-    postEdit,
-    postUpdate,
-    postDelete
+  postIndex,
+  postNew,
+  postCreate,
+  postShow,
+  postEdit,
+  postUpdate,
+  postDelete
 } = require('../controllers/posts');
 
 /* GET posts index /posts */
@@ -29,7 +29,7 @@ router.get('/:id', errorHandler(postShow));
 router.get('/:id/edit', errorHandler(postEdit));
 
 /* PUT posts update /posts/:id */
-router.put('/:id', errorHandler(postUpdate));
+router.put('/:id', upload.array('images', 4), errorHandler(postUpdate));
 
 /* DELETE posts destroy /posts/:id */
 router.delete('/:id', errorHandler(postDelete));
