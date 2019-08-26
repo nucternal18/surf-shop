@@ -2,9 +2,11 @@
     "git.ignoreLimitWarning": true,
     "cSpell.words": [
         "Imgs",
+        "MAPBOX",
         "aolausoro",
         "clientinstall",
         "cloudinary",
+        "mapboxgl",
         "resave",
         "uploader"
     ]
