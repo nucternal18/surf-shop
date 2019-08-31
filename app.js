@@ -58,6 +58,11 @@ passport.deserializeUser(User.deserializeUser());
 
 // title middleware
 app.use(function (req, res, next) {
+  req.user = {
+    '_id': '5d65af784437b8a6f1e48b30',
+    'username': 'John'
+  }
+  res.locals.curentUser = req.user;
   res.locals.title = 'Surf Shop';
   //Set success flash message
   res.locals.success = req.session.success || '';

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { postRegister, postLogin, getLogout } = require('../controllers/index');
-const { errorHandler } = require('../middleware');
+const errorHandler  = require('../middleware');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {

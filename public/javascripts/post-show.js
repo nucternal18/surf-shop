@@ -16,3 +16,13 @@ new mapboxgl.Marker(el)
 .setLngLat(post.coordinates)
 .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
 .setHTML('<h3>' + post.title + '</h3><p>' + post.location + '</p>')).addTo(map);
+
+// Toggle Edit review form
+$('.toggle-edit-form').on('click', function() {
+  //toggle the edit button on click
+  $(this).text() === 'Edit' ? $(this).text('Cancel') : $(this).text('Edit');
+  //toggle the visibility of the edit review form
+  $(this)
+    .siblings('.edit-review-form')
+    .toggle();
+});

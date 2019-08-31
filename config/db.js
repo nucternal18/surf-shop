@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb://localhost:27017/surf-shop-mapbox', {
+        await mongoose.connect('mongodb://localhost:27017/surf-shop', {
             useNewUrlParser: true,
             useCreateIndex: true,
             useFindAndModify: false
